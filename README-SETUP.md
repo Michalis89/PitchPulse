@@ -1,6 +1,6 @@
 # PitchPulse agentic setup
 
-This repository contains an agent setup, not an application implementation. AGENTS.md is canonical; CLAUDE.md imports it using `@AGENTS.md`. Either Codex or Claude may implement a task, with the other independently reviewing a stable diff.
+The reviewed agent setup is committed and merged into local develop. Application foundation work now exists on feature/phase1-foundation; see the root README for startup and validation. AGENTS.md is canonical; CLAUDE.md imports it using `@AGENTS.md`. Either Codex or Claude may implement a task, with the other independently reviewing a stable diff.
 
 ## Local setup (Windows PowerShell)
 1. Open the repository root and inspect `git status` and the policy files before editing. Untracked files are not included in ordinary `git diff`; include them in review.
@@ -9,7 +9,7 @@ This repository contains an agent setup, not an application implementation. AGEN
 4. `.claude/settings.example.json` is an inactive example. If manually adopted later, review it first; it registers no hooks. Its broad `.env.*` Read denial also blocks placeholder examples. It does not prevent secret access through other tools and is not a sandbox.
    Shared `.claude/settings.json` may be committed after review and policy validation; it is not created by this setup. The accepted schema permits only optional empty `hooks` and `permissions.deny`/`permissions.ask` lists of nonempty strings. Tool grants, permission-mode overrides, environment values and other fields are rejected. Keep secrets and machine-specific settings in ignored local files, never in shared configuration.
 5. Leave MCP servers and hooks disabled unless a separate task needs and authorizes them. No global configuration is required by this setup.
-6. Assign one lead and one independent reviewer per task. No commit, push, merge or deployment without explicit owner instruction. Phase 1 scaffolding is a separate task.
+6. Assign one lead and one independent reviewer per task. No commit, push, merge or deployment without explicit owner instruction. The full Phase 1 demo match centre remains a later task after foundation review.
 
 ## What's included
 - AGENTS.md, CLAUDE.md, design/testing/agent docs, patched architecture and decisions

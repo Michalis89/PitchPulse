@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "first": "Pitch",
+    "last": "Pulse"
+  },
+  "metadata": {
+    "title": "PitchPulse | Foundation",
+    "description": "PitchPulse foundation for a future Greek Super League match centre."
+  },
+  "navigation": {
+    "skip": "Skip to main content",
+    "home": "PitchPulse home",
+    "competition": "Greek Super League"
+  },
+  "language": {
+    "label": "Language",
+    "greek": "Ελληνικά",
+    "english": "English",
+    "loadError": "The language could not be loaded. Greek is displayed."
+  },
+  "home": {
+    "stage": "Foundation build",
+    "title": "A clear view of the game.",
+    "intro": "The first step towards a Greek Super League match centre. Fixtures, events and match statistics will follow in a later development task."
+  },
+  "connectivity": {
+    "category": "System status",
+    "title": "Platform connection",
+    "loading": {
+      "title": "Checking connection…",
+      "body": "Contacting the platform."
+    },
+    "ready": {
+      "title": "Backend connected",
+      "body": "The application and database are available."
+    },
+    "error": {
+      "title": "Connection unavailable",
+      "body": "The platform could not be reached. Please try again."
+    },
+    "retry": "Retry connection",
+    "refresh": "Check again",
+    "lastChecked": "Last checked",
+    "timezone": "Athens time"
+  },
+  "empty": {
+    "foundation": "Foundation only. No match data or live football feed is loaded."
+  }
+}

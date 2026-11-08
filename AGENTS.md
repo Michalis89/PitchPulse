@@ -35,7 +35,7 @@ PitchPulse/
   .env.example
 ```
 
-This diagram includes planned application paths; `client/`, `server/`, `infra/`, `compose.yaml` and `.env.example` do not exist yet. Do not create `apps/web` or `apps/api`. Keep documentation aligned with `client/` and `server/`. Keep the structure minimal; do not create empty directories merely to match the diagram.
+The foundation implements `client/`, `server/`, root `compose.yaml` and `.env.example`. `infra/` remains optional and is not created yet. The full Phase 1 match centre is future work. Do not create `apps/web` or `apps/api`. Keep documentation aligned with `client/` and `server/`. Keep the structure minimal; do not create empty directories merely to match the diagram.
 
 ## Technology decisions
 
@@ -82,6 +82,7 @@ This diagram includes planned application paths; `client/`, `server/`, `infra/`,
 8. **Security:** no secrets in repository or frontend; `.env.example` contains placeholders only. Validate inputs, configure CORS allowlist, avoid public mutation/admin endpoints, and do not commit credentials.
 9. **Performance:** indexes and pagination for historical data, efficient SSE fan-out, bounded event retention/replay, no N+1 query patterns.
 10. **UX:** keyboard navigation, adequate contrast, reduced-motion support, text alternatives for pitch animations, responsive/mobile-first layouts.
+    **i18n:** Greek (`el-GR`) first, English (`en-US`) supported from MVP; use structured Transloco keys for all user-facing copy and accessible labels. Persist the selected language, fall back to Greek, and format display dates/times/numbers with the active locale and default `Europe/Athens` timezone. Keep API/status identifiers language-neutral.
 11. **Schema evolution:** use additive Flyway migrations; never edit an already-applied migration to alter deployed schemas.
 12. **Scope discipline:** do not implement Phase 2/3 merely because their contracts or future domain entities are documented.
 

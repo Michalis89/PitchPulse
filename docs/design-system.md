@@ -29,7 +29,7 @@ Team comparisons require visible team names and a legend wherever color is used.
 ## Foundations
 - Typography: system UI font stack initially, tabular numerals for scores, odds, timestamps and xG; headings 600–700 weight. No external fonts without approval.
 - Spacing base: 4px; allowed spacing steps 4/8/12/16/24/32/48. Radius: 8px controls, 12px cards, 16px large panels.
-- During Phase 1 scaffolding, define color, space, type and radii in `client/src/styles/tokens.css` plus Tailwind theme mapping. Add Stylelint to reject color literals outside the token file and automated axe checks to the browser smoke test. These enforcement tools do not exist yet; no UI scaffold is part of setup remediation. No random per-component hex colors or magic spacing values.
+- Foundation colors are defined in `client/src/styles/tokens.css`, with Tailwind theme mapping in `client/src/styles.css`; spacing/type/radii use the documented scale through Tailwind utilities. Stylelint rejects CSS color literals outside the token file and axe runs in Playwright at the three Phase 1 viewports. CSS lint does not inspect arbitrary template inline styles, so source review remains necessary. No random per-component hex colors or magic spacing values.
 - Main container up to 1440px with responsive gutters; use the canonical viewport matrix below for design and testing. Support narrow content without horizontal page overflow.
 - Components: `Scoreboard`, `MatchCard`, `StatusPill`, `StatBar`, `EventTimeline`, `PitchView`, `CompetitionSelect`, `EmptyState`, `ErrorState`, `Skeleton`.
 - Shared components define visual variants; do not duplicate visual markup per page. One place defines team colors, typography and surface styles.
@@ -45,6 +45,13 @@ Team comparisons require visible team names and a legend wherever color is used.
 - Buttons and tabs keyboard accessible; focus visible; targets comfortably tappable; responsive content order.
 - Always display odds/data timestamps and provider/DEMO provenance where needed.
 - Show timezone in match times; never present placeholder league options as supported.
+
+## Language and localization UX
+- Greek is the first-render default; English is available from the labelled native header selector. Options always use their endonyms, **Ελληνικά / English**, with appropriate option `lang` attributes. Do not use flags to stand for languages.
+- Keep a visible, translated label and keyboard focus when switching. The selector stays usable during loads, exposes `aria-busy`, and allows a newer choice to supersede an older request. It shows the accepted language after completion; a whole-language load failure returns to Greek and announces a translated alert. Preference persists across reloads when localStorage is available.
+- All visible copy, navigation/skip-link labels, accessibility labels, loading/error/empty states and metadata come from structured translation keys. PitchPulse is an unchanged brand in both catalogs. Never construct sentences from translated fragments or translate API/status identifiers; map them to UI keys.
+- Allow Greek text to wrap naturally; preserve responsive ordering and visible focus at the canonical three viewports. Both languages have axe/overflow/focus coverage and review screenshots; they are not approved screenshot baselines.
+- Use the active locale for dates, times and numbers. Use the configured Transloco Locale pipes; dates/times default to **Europe/Athens** in both languages. Keep machine-readable ISO timestamps intact and display a translated Athens-time label. Do not hardcode separators or assume all runtimes use the same abbreviations or hour cycle. Future dynamic values should use translation interpolation and locale-aware formatting, not string concatenation.
 
 ## Visual review contract
 This is the canonical viewport matrix for all design, testing and review instructions (CSS pixels):

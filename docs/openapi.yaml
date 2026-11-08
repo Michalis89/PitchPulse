@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: PitchPulse foundation API
+  version: 0.1.0
+paths:
+  /api/v1/health:
+    get:
+      operationId: getHealth
+      summary: Application and PostgreSQL readiness (no football data)
+      responses:
+        '200':
+          description: Application and database available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Database unavailable after application startup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      additionalProperties: false
+      required: [status, service, database]
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN]
+        service:
+          type: string
+          enum: [pitchpulse]
+        database:
+          type: string
+          enum: [UP, DOWN]

@@ -1,0 +1,32 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+spring:
+  application:
+    name: pitchpulse
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pitchpulse}
+    username: ${DB_USERNAME:pitchpulse}
+    password: ${DB_PASSWORD}
+    hikari:
+      connection-timeout: 3000
+      validation-timeout: 1000
+      maximum-pool-size: 5
+  jdbc:
+    template:
+      query-timeout: 3s
+  flyway:
+    enabled: true
+    # V1 creates the username-matching pitchpulse schema; keep history stable
+    # instead of following PostgreSQL's changing "$user", public search path.
+    default-schema: public
+    clean-disabled: true
+  sql:
+    init:
+      mode: never
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}

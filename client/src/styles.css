@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+
+@theme inline {
+  --color-bg: var(--pp-bg);
+  --color-surface: var(--pp-surface);
+  --color-text: var(--pp-text);
+  --color-muted: var(--pp-muted);
+  --color-border: var(--pp-border);
+  --color-control-border: var(--pp-control-border);
+  --color-accent: var(--pp-accent);
+  --color-warning: var(--pp-warning);
+}
+
+body {
+  margin: 0;
+  background: var(--pp-bg);
+  color: var(--pp-text);
+  font-family: system-ui, sans-serif;
+}
+
+a { text-decoration: none; }
+button:not(:disabled), a { cursor: pointer; }
+
+:focus-visible {
+  outline: 3px solid var(--pp-focus);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-control-border);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
