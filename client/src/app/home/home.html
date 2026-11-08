@@ -1,0 +1,56 @@
+<ng-container *transloco="let t">
+  <a class="skip-link" href="#main">{{ t('navigation.skip') }}</a>
+  <div class="mx-auto flex min-h-dvh max-w-360 flex-col px-4 py-8 sm:px-8">
+    <header class="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+      <a href="/" class="text-2xl font-bold tracking-tight" [attr.aria-label]="t('navigation.home')">
+        {{ t('brand.first') }}<span class="text-accent">{{ t('brand.last') }}</span>
+      </a>
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="rounded-lg border border-border px-3 py-2 text-sm text-muted">{{ t('navigation.competition') }}</span>
+        <app-language-switcher />
+      </div>
+    </header>
+
+    <main id="main" class="grid flex-1 items-center gap-8 py-12 lg:grid-cols-2" tabindex="-1">
+      <section aria-labelledby="intro-title">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">{{ t('home.stage') }}</p>
+        <h1 id="intro-title" class="max-w-xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{{ t('home.title') }}</h1>
+        <p class="mt-6 max-w-lg text-lg leading-relaxed text-muted">{{ t('home.intro') }}</p>
+      </section>
+
+      <section aria-labelledby="connection-title" class="rounded-2xl border border-border bg-surface p-6 sm:p-8">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-muted">{{ t('connectivity.category') }}</p>
+        <h2 id="connection-title" class="text-2xl font-semibold">{{ t('connectivity.title') }}</h2>
+        <div role="status" aria-live="polite" aria-atomic="true" class="mt-6 min-h-24">
+          @switch (state()) {
+            @case ('loading') {
+              <p class="font-semibold">{{ t('connectivity.loading.title') }}</p>
+              <p class="mt-2 text-muted">{{ t('connectivity.loading.body') }}</p>
+            }
+            @case ('ready') {
+              <p class="font-semibold text-accent">{{ t('connectivity.ready.title') }}</p>
+              <p class="mt-2 text-muted">{{ t('connectivity.ready.body') }}</p>
+            }
+            @case ('error') {
+              <p class="font-semibold text-warning">{{ t('connectivity.error.title') }}</p>
+              <p class="mt-2 text-muted">{{ t('connectivity.error.body') }}</p>
+            }
+          }
+        </div>
+        <button type="button" (click)="refresh()" [disabled]="state() === 'loading'"
+          class="mt-6 min-h-12 rounded-lg border border-control-border px-6 py-3 font-semibold disabled:cursor-wait disabled:opacity-60">
+          {{ t(state() === 'error' ? 'connectivity.retry' : 'connectivity.refresh') }}
+        </button>
+        @if (checkedAt(); as checked) {
+          <p class="mt-4 text-sm leading-relaxed text-muted">
+            {{ t('connectivity.lastChecked') }}:
+            <time [attr.datetime]="checked.toISOString()">{{ checked | translocoDate }}</time>
+            <span class="block">{{ t('connectivity.timezone') }}</span>
+          </p>
+        }
+      </section>
+    </main>
+
+    <footer class="border-t border-border pt-6 text-sm leading-relaxed text-muted">{{ t('empty.foundation') }}</footer>
+  </div>
+</ng-container>

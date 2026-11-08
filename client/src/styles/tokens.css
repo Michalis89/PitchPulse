@@ -1,0 +1,16 @@
+:root {
+  --pp-bg: #0B1220;
+  --pp-surface: #132033;
+  --pp-surface-raised: #1D3047;
+  --pp-text: #F3F7FC;
+  --pp-muted: #A8B8CA;
+  --pp-border: #34465C;
+  --pp-control-border: #8196B0;
+  --pp-focus: #E5F0FF;
+  --pp-accent: #55E6AE;
+  --pp-live: #FF636E;
+  --pp-warning: #F4BE5A;
+  --pp-home: #C7A6FF;
+  --pp-away: #65A4FF;
+  color-scheme: dark;
+}

@@ -1,0 +1,16 @@
+# Normalize text in the repository and working tree, independent of core.autocrlf.
+* text=auto eol=lf
+
+# Preserve binary artifacts byte-for-byte.
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.webp -text
+*.ico -text
+*.pdf -text
+*.woff -text
+*.woff2 -text
+*.jar -text
+*.zip -text
+*.gz -text

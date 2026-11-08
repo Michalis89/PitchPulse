@@ -1,0 +1,20 @@
+# Testing strategy
+
+## Levels
+- Backend: JUnit unit tests for rules, integration tests for DB migrations, REST DTOs and SSE idempotency/reconnect. Testcontainers if runtime/Docker available; document skips.
+- Frontend: Angular unit tests for typed views/state, Playwright browser smoke tests for home, match center, reconnect and responsive layout.
+- Data integrity: duplicated events, out-of-order events, corrections, HT/FT, suspended/postponed matches, UTC/Athens dates.
+- Accessibility: semantic roles, keyboard order, contrast checks and reduced motion; automated a11y checks supplement manual review.
+- Visual: Playwright `toHaveScreenshot` with deterministic demo data and stable browser/OS. Use the canonical viewport matrix in `docs/design-system.md`; broadcast applies only in Phase 3. Initial snapshot creation needs human approval and review of the baseline.
+
+## Quality gates
+- Setup checks: `python scripts/check_agentic_policy.py`, `python -m unittest discover -s scripts/tests -v`, and Gitleaks directory/history scans in `.github/workflows/agentic-policy.yml`.
+- Foundation app checks in `.github/workflows/foundation.yml`: Maven `verify` (MVC tests plus a mandatory PostgreSQL Testcontainers/Flyway/API integration test), `npm ci`, CSS token lint, Angular/Vitest tests, production Angular build and Playwright/axe against real Compose PostgreSQL plus the packaged API. Browser tests additionally mock health responses to exercise loading/failure/retry. No match/SSE checks are claimed yet.
+- Local backend `test` runs MVC tests without Docker; `verify` requires Docker and fails if integration prerequisites are missing. Never mark `test` alone as a database integration pass. Playwright uses the canonical mobile/tablet/desktop sizes and captures review screenshots in ignored `client/test-results/`; these are evidence, not approved screenshot baselines.
+- Implemented i18n unit coverage: Greek default and metadata, saved English, persistence on switching, unsupported preferences, blocked storage, missing/empty English key fallback, whole-language load failure, overlapping-request ordering, active-locale number/date pipes with Athens winter/summer dates, and matching nonempty catalog keys. Foundation component tests now run in Greek. The number-format host exists only in tests.
+- Implemented i18n Playwright coverage at all three canonical viewports: Greek default despite an English browser, translated metadata/empty/connectivity states, focus retention, runtime switching both directions and reload persistence, missing/empty English fallback after reload, failed English asset fallback and unsupported storage. Dates are fixed, the browser timezone is America/Los_Angeles, and expected Athens formatting uses that browser's Intl to avoid cross-ICU test differences. Both languages run axe and overflow checks with screenshots. The full suite also retains real backend connectivity plus translated loading/error/retry checks; i18n-specific cases mock only the existing health endpoint and translation failures.
+- Windows Playwright uses one worker and launches Chromium with `--disable-gpu` after observing incomplete headless captures during concurrent language-switch tests; other platforms keep their default workers/launch options. This is test-only execution/rasterization, not a product CSS workaround or an approved screenshot baseline. Capture visible content before axe's temporary DOM probes.
+- Phase 1 required PR checks once implemented: compile, lint, unit, database-backed integration, Playwright smoke, secret scan and migration validation. CI must provision required database infrastructure; a local infrastructure skip is a reported gap, never a Phase 1 acceptance pass.
+- No passing result may be claimed without explicit command output. Do not disable tests or adjust screenshots solely to hide regressions.
+- Screenshot baselines may vary across OS; use a pinned CI image and browser version for comparisons.
+- Agent reports test commands, pass/fail, skips and missing prerequisites in handoff.
