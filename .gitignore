@@ -1,0 +1,99 @@
+# Local environment and credentials (examples must contain placeholders only)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.ppk
+# Standard SSH private-key names, even when stored outside .ssh/
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+id_ecdsa_sk
+id_ed25519_sk
+credentials.json
+service-account*.json
+.aws/
+.ssh/
+.mcp.json
+.mcp.local.json
+
+# Agent machine-local settings/state; shared .claude/settings.json is trackable
+# Shared settings must pass scripts/check_agentic_policy.py and contain no secrets.
+.claude/settings.local.json
+.claude/settings.local.*.json
+.claude/CLAUDE.local.md
+CLAUDE.local.md
+.claude/projects/
+.claude/session-env/
+.claude/agent-memory-local/
+.claude/worktrees/
+.worktrees/
+worktrees/
+.codex/
+
+# Java/Maven (retain Maven wrapper and source files)
+target/
+*.class
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# Angular/Node
+node_modules/
+.angular/
+dist/
+out-tsc/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+*.tsbuildinfo
+
+# Tests, generated reports, local logs and Python caches
+coverage/
+playwright-report/
+test-results/
+blob-report/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.log
+logs/
+gitleaks-report*.json
+/docs/reviews/
+
+# Local database/runtime volumes and exports
+.data/
+pgdata/
+postgres-data/
+*.dump
+*.backup
+
+# Editors and operating systems
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Scratch/package artifacts; lockfiles and build wrappers stay trackable
+tmp/
+temp/
+*.zip
+*.tar.gz
